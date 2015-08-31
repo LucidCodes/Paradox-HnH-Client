@@ -32,7 +32,7 @@ public class ISBox extends Widget implements DTarget {
     private Indir<Resource> res;
     private Text label;
     static {
-        lf = new Text.Foundry(new ParadoxSettings().getFont(), 22, java.awt.Color.WHITE);
+        lf = new Text.Foundry(new Text().ChosenFont, 22, java.awt.Color.WHITE);
         lf.aa = true;
     }
     

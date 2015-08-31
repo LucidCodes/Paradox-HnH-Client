@@ -158,6 +158,12 @@ public class GLSettings implements java.io.Serializable {
 		}
 	    }
 	};
+	
+	//Font Setting
+	public final BoolSetting ReplaceFont = new BoolSetting("fnt") {
+	    public Boolean defval() {return(false);}
+	    public void validate(Boolean val) {}
+	};
 
     public final BoolSetting flight = new BoolSetting("flight") {
 	    public Boolean defval() {return(true);}
@@ -257,6 +263,8 @@ public class GLSettings implements java.io.Serializable {
 		}
 	    }
 	}
+	//Load all custom setting functions here
+	new haven.Text().Replace(gs.ReplaceFont.val);
 	return(gs);
     }
 

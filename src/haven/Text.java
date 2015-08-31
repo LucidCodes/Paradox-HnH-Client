@@ -44,6 +44,26 @@ public class Text {
     private Tex tex;
     public static final Color black = Color.BLACK;
     public static final Color white = Color.WHITE;
+    
+    //Our Font Controls
+    public static boolean ReplaceFont = false;
+    public static Font ChosenFont = fraktur;
+    
+    public void Replace(boolean val){
+    	this.ReplaceFont = val;
+    	if(val){
+    		ChosenFont = sans;
+    	}else{
+    		ChosenFont = fraktur;
+    	}
+    }
+    
+    //New Constructor to give access to settings
+    public Text(){
+    	img = null;
+    	text = null;
+    }
+    
     static {
 	std = new Foundry(sans, 10);
     }

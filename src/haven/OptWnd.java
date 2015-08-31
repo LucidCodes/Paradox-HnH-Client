@@ -80,22 +80,16 @@ public class OptWnd extends Window {
     	
     	public class CPanel extends Widget {
     	    public final GLSettings cf;
-    	    public haven.ParadoxSettings ps = new haven.ParadoxSettings();
 
     	    public CPanel(GLSettings gcf) {
     		this.cf = gcf;
     		int y = 0;
     		add(new CheckBox("Replace Fonts (Restart Required)") {
-    			{a = ps.ReplaceFonts;}
+    			{a = cf.ReplaceFont.val;}
 
     			public void set(boolean val) {
-    				ps.ReplaceFonts = val;
-    				if(val){
-    					ps.SetFonts(true);
-    				}else{
-    					ps.SetFonts(false);
-    				}
-    			    
+    				cf.ReplaceFont.set(val);
+    				new haven.Text().Replace(val);
     			    a = val;
     			    cf.dirty = true;
     			}
@@ -125,7 +119,6 @@ public class OptWnd extends Window {
 	
 	public class CPanel extends Widget {
 	    public final GLSettings cf;
-	    public haven.ParadoxSettings ps = new haven.ParadoxSettings();
 
 	    public CPanel(GLSettings gcf) {
 		this.cf = gcf;
