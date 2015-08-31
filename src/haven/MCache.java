@@ -57,6 +57,16 @@ public class MCache {
 	    super(cause);
 	}
     }
+    
+  //Constructor so we can access statics
+    public MCache(){}
+  //Turns off flavor creation, an extra step rather than just flavor rendering
+  	public static boolean HideFlavor = false;
+  	public void Hide(boolean val){
+      	HideFlavor = val;
+      }
+  	
+  	
 
     private static class Request {
 	private long lastreq = 0;
@@ -140,34 +150,37 @@ public class MCache {
 	public int getol(Coord tc) {
 	    return(ol[tc.x + (tc.y * cmaps.x)]);
 	}
-
+	
+	
 	private void makeflavor() {
-	    @SuppressWarnings("unchecked")
-	    Collection<Gob>[] fo = (Collection<Gob>[])new Collection[cutn.x * cutn.y];
-	    for(int i = 0; i < fo.length; i++)
-		fo[i] = new LinkedList<Gob>();
-	    Coord c = new Coord(0, 0);
-	    Coord tc = gc.mul(cmaps);
-	    int i = 0;
-	    Random rnd = new Random(id);
-	    for(c.y = 0; c.y < cmaps.x; c.y++) {
-		for(c.x = 0; c.x < cmaps.y; c.x++, i++) {
-		    Tileset set = tileset(tiles[i]);
-		    int fp = rnd.nextInt();
-		    int rp = rnd.nextInt();
-		    double a = rnd.nextDouble();
-		    if(set.flavobjs.size() > 0) {
-			if((fp % set.flavprob) == 0) {
-			    Indir<Resource> r = set.flavobjs.pick(rp % set.flavobjs.tw);
-			    Gob g = new Flavobj(c.add(tc).mul(tilesz).add(tilesz.div(2)), a * 2 * Math.PI);
-			    g.setattr(new ResDrawable(g, r, Message.nil));
-			    Coord cc = c.div(cutsz);
-			    fo[cc.x + (cc.y * cutn.x)].add(g);
+		if(!(HideFlavor)){
+		    @SuppressWarnings("unchecked")
+		    Collection<Gob>[] fo = (Collection<Gob>[])new Collection[cutn.x * cutn.y];
+		    for(int i = 0; i < fo.length; i++)
+			fo[i] = new LinkedList<Gob>();
+		    Coord c = new Coord(0, 0);
+		    Coord tc = gc.mul(cmaps);
+		    int i = 0;
+		    Random rnd = new Random(id);
+		    for(c.y = 0; c.y < cmaps.x; c.y++) {
+			for(c.x = 0; c.x < cmaps.y; c.x++, i++) {
+			    Tileset set = tileset(tiles[i]);
+			    int fp = rnd.nextInt();
+			    int rp = rnd.nextInt();
+			    double a = rnd.nextDouble();
+			    if(set.flavobjs.size() > 0) {
+					if((fp % set.flavprob) == 0) {
+					    Indir<Resource> r = set.flavobjs.pick(rp % set.flavobjs.tw);
+					    Gob g = new Flavobj(c.add(tc).mul(tilesz).add(tilesz.div(2)), a * 2 * Math.PI);
+					    g.setattr(new ResDrawable(g, r, Message.nil));
+					    Coord cc = c.div(cutsz);
+					    fo[cc.x + (cc.y * cutn.x)].add(g);
+					}
+			    }
 			}
 		    }
+		    this.fo = fo;
 		}
-	    }
-	    this.fo = fo;
 	}
 
 	public Collection<Gob> getfo(Coord cc) {

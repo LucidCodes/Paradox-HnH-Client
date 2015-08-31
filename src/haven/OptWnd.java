@@ -95,6 +95,17 @@ public class OptWnd extends Window {
     			}
     		    }, new Coord(0, y));
     		y += 25;
+    		add(new CheckBox("Hide Flavor Objects") {
+    			{a = cf.HideFlavor.val;}
+
+    			public void set(boolean val) {
+    				cf.HideFlavor.set(val);
+    				new haven.MCache().Hide(cf.HideFlavor.val);
+    			    a = val;
+    			    cf.dirty = true;
+    			}
+    		    }, new Coord(0, y));
+    		y += 25;
     		
     		pack();
     	    }

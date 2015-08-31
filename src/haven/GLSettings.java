@@ -164,6 +164,12 @@ public class GLSettings implements java.io.Serializable {
 	    public Boolean defval() {return(false);}
 	    public void validate(Boolean val) {}
 	};
+	
+	//Flavor Setting
+		public final BoolSetting HideFlavor = new BoolSetting("flvor") {
+		    public Boolean defval() {return(false);}
+		    public void validate(Boolean val) {}
+		};
 
     public final BoolSetting flight = new BoolSetting("flight") {
 	    public Boolean defval() {return(true);}
@@ -265,6 +271,8 @@ public class GLSettings implements java.io.Serializable {
 	}
 	//Load all custom setting functions here
 	new haven.Text().Replace(gs.ReplaceFont.val);
+	new haven.MCache().Hide(gs.HideFlavor.val);
+	
 	return(gs);
     }
 
